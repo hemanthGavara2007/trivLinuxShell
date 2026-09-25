@@ -1,0 +1,12 @@
+# Compiled object files
+*.o
+
+# Executables
+*.out
+my_shell
+
+# macOS
+.DS_Store
+
+# CLion
+.idea/
