@@ -22,5 +22,30 @@ void command_pwd() {
         printf("The current directory : %s",cwd);
         return;
     }
-    printf("Error: Directory is not ")
+    printf("Error: Directory is not ");
+}
+
+void command_ls(char* args) {
+    struct dirent* entry;
+    if (args == NULL) {
+        printf("Error: Expected argument");
+    }
+    DIR* dir = opendir(args);
+
+    if (dir == NULL) {
+        printf("The directory does not exist");
+    }
+
+    while ((entry = readdir(dir)) != NULL) {
+        printf("%s \n", entry->d_name);
+    }
+}
+
+void command_clear() {
+#ifdef WIN_32
+    system("cls");
+#else
+    system("clear");
+#endif
+
 }

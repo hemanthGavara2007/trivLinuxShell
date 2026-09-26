@@ -7,3 +7,5 @@
 char** parse_input(const char* input);
 void command_cd(char* args);
 void command_pwd();
+void command_ls(char* args);
+void command_clear();

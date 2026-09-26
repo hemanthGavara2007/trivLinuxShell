@@ -33,6 +33,7 @@ char** parse_input(const char* input) {
             k = 2;
             j--;
         }
+
         token = realloc(token,(j+1) * sizeof(char));
         token[j] = '\0';
         i = i + j + k;
@@ -41,6 +42,7 @@ char** parse_input(const char* input) {
         j = 0;
     }
     tokens = realloc(tokens,(tokcou + 1) * sizeof(char*));
+
     tokens[tokcou] = NULL;
     return tokens;
 }

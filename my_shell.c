@@ -24,27 +24,19 @@ int main() {
         }
 
         if (strcmp(tokens[0],"pwd") == 0) {
-
             command_pwd();
         }
+
         if (strcmp(tokens[0],"cd") == 0) {
             command_cd(tokens[1]);
 
         }
         if (strcmp(tokens[0],"ls") == 0 ) {
-            DIR* dir = opendir(".");
-           if (tokens[2] ==  NULL) {
-               dir = opendir(tokens[2]);
-           }
+                command_ls(tokens[1]);
 
-
-            if (dir == NULL) {
-                printf("The directory does not exist");
-            }
-
-            while ((entry = readdir(dir)) != NULL) {
-                printf("%s \n", entry->d_name);
-            }
+        }
+        if (strcmp(tokens[0],"clear") == 0) {
+            command_clear();
         }
     }
 }
