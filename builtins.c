@@ -22,7 +22,7 @@ void command_pwd() {
         printf("The current directory : %s",cwd);
         return;
     }
-    printf("Error: Directory is not ");
+    printf("Error: Directory is not existing");
 }
 
 void command_ls(char* args) {
@@ -55,14 +55,17 @@ void command_getbasicenv() {
 
 }
 
-void command_which(char* args) {
+char* command_which(char* args) {
 
     int i = 0;
+    char* loc = NULL;
     for (i = 0; commands[i] != NULL; i++) {
         if (strcmp(args,commands[i]) == 0) {
-            printf("/builtins.c");
+            loc = calloc(sizeof(char),70);
+            strcpy(loc,"/builtins.c");
+            break;
         }
     }
-
+return loc;
 
 }

@@ -40,7 +40,12 @@ int main() {
             command_clear();
         }
         if (strcmp(tokens[0],"which") == 0) {
-            command_which(tokens[1]);
+            if (command_which(tokens[1]) == NULL) {
+                printf("Command not found");
+            }
+            else {
+                printf("%s",command_which(tokens[1]));
+            }
         }
     }
 }
