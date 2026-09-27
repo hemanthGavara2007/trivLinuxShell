@@ -7,11 +7,11 @@
 int main() {
     char* input = (char*)calloc(sizeof(char),1024);
     struct dirent* entry;
+    command_makeglobalenv();
     while (1) {
-        
-        printf("\n triv> ");
+        printf("\n \n triv> ");
         fgets(input,1024,stdin);
-        printf("Input given : %s",input);
+
 
 
         if (strcmp(input,"quit\n") == 0) {
@@ -21,11 +21,13 @@ int main() {
         char **tokens = parse_input(input);
 
         if (strcmp(tokens[0],"echo") == 0 && tokens[2] == NULL) {
-            printf("%s",tokens[1]);
+            command_echo(tokens[1]);
         }
 
         if (strcmp(tokens[0],"pwd") == 0) {
-            command_pwd();
+            if (strstr(command_pwd(),"trivLinuxShell") != NULL) {
+                printf("%s",strstr(command_pwd(),"trivLinuxShell"));
+            }
         }
 
         if (strcmp(tokens[0],"cd") == 0) {
@@ -46,6 +48,26 @@ int main() {
             else {
                 printf("%s",command_which(tokens[1]));
             }
+        }
+        if (strstr(tokens[0],"$") && strstr(tokens[0],"=")) {
+            char* ident = calloc(20,sizeof(char));
+            char* value = calloc(20,sizeof(char));
+
+            int i = 1;
+            int j = 1;
+            while (tokens[0][i] != '=') {
+                ident[i - 1] = tokens[0][i];
+                i++;
+            }
+            tokens[0][i] = '\0';
+            j = i + 1;
+            i = 0;
+            while (tokens[0][j] != '\n') {
+                value[i++] = tokens[0][j++];
+            }
+            tokens[0][j] = '\0';
+            printf("%s %s",ident,value);
+            command_makelocalenv(ident,value);
         }
     }
 }
