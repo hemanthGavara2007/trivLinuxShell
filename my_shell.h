@@ -9,3 +9,5 @@ void command_cd(char* args);
 void command_pwd();
 void command_ls(char* args);
 void command_clear();
+void command_which(char* args);
+static char* commands[] = {"cd","env","pwd","ls","clear","echo","which",NULL};

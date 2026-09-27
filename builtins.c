@@ -47,5 +47,22 @@ void command_clear() {
 #else
     system("clear");
 #endif
+}
+
+void command_getbasicenv() {
+
+
+
+}
+
+void command_which(char* args) {
+
+    int i = 0;
+    for (i = 0; commands[i] != NULL; i++) {
+        if (strcmp(args,commands[i]) == 0) {
+            printf("/builtins.c");
+        }
+    }
+
 
 }

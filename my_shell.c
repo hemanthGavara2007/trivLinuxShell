@@ -8,10 +8,11 @@ int main() {
     char* input = (char*)calloc(sizeof(char),1024);
     struct dirent* entry;
     while (1) {
-
+        
         printf("\n triv> ");
         fgets(input,1024,stdin);
         printf("Input given : %s",input);
+
 
         if (strcmp(input,"quit\n") == 0) {
             printf("Thnx for trying it out");
@@ -37,6 +38,9 @@ int main() {
         }
         if (strcmp(tokens[0],"clear") == 0) {
             command_clear();
+        }
+        if (strcmp(tokens[0],"which") == 0) {
+            command_which(tokens[1]);
         }
     }
 }
