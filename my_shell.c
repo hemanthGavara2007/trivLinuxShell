@@ -15,8 +15,7 @@ int main() {
 
 
         if (strcmp(input,"quit\n") == 0) {
-            printf("Thnx for trying it out");
-            break;
+            command_quit();
         }
         char **tokens = parse_input(input);
 
@@ -50,24 +49,35 @@ int main() {
             }
         }
         if (strstr(tokens[0],"$") && strstr(tokens[0],"=")) {
-            char* ident = calloc(20,sizeof(char));
+            char* ident = calloc(20,sizeof(char)); // There is a error here , solve it
             char* value = calloc(20,sizeof(char));
 
             int i = 1;
             int j = 1;
             while (tokens[0][i] != '=') {
                 ident[i - 1] = tokens[0][i];
+
                 i++;
             }
-            tokens[0][i] = '\0';
-            j = i + 1;
+            ident[i - 1] = '\0';
+            j = j + i;
             i = 0;
-            while (tokens[0][j] != '\n') {
-                value[i++] = tokens[0][j++];
+            printf("\n");
+            while (tokens[0][j] != '\0') {
+                value[i] = tokens[0][j];
+                j++;
+                i++;
             }
-            tokens[0][j] = '\0';
-            printf("%s %s",ident,value);
+            value[i] = '\0';
             command_makelocalenv(ident,value);
+
+        }
+        if (strcmp(tokens[0],"export") == 0) {
+            printf("%s",tokens[1]);
+            command_export(tokens[1]);
+        }
+        if (strcmp(tokens[0],"unset") == 0) {
+            command_deleteglobal(tokens[1]);
         }
     }
 }

@@ -11,9 +11,13 @@ void command_ls(char* args);
 void command_clear();
 char* command_which(char* args);
 void command_makeglobalenv();
-char* command_getglobalenv(char* ident);
+char* command_getenv(char* ident);
 void command_makelocalenv(char* ident, char* value);
 void command_echo(char* args);
+void command_quit();
+void command_deletelocal(char* ident);
+void command_deleteglobal(char* ident);
+void command_export(char* ident);
 
 typedef struct env {
     char* ident;
@@ -21,5 +25,4 @@ typedef struct env {
 }env;
 
 static char* commands[] = {"cd","env","pwd","ls","clear","echo","which",NULL};
-env **lv;
-static int lvc = 3;
+char **lv;

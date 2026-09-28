@@ -73,40 +73,55 @@ void command_makeglobalenv() {
     strcpy(f,"trivLinuxShell");
     env home1 = {e,f};
     env *home= &home1;
-    lv = calloc(lvc,sizeof(env));
-    lv[0] = path;
-    lv[1] = shell;
-    lv[2] = home;
+    lv = calloc(70,sizeof(char*));
 
     setenv(path -> ident,path-> value,1);
     setenv(home -> ident,home-> value,1);
     setenv(shell -> ident,shell-> value,1);
 }
 
-char* command_getglobalenv(char* ident) {
+char* command_getenv(char* ident) {
     return getenv(ident);
 }
 void command_makelocalenv(char* ident,char* value) {
-    env *x;
-    x -> ident = ident;
-    x -> value = value;
-    lv = realloc(lv,(lvc) *(sizeof(env)));
-    lv[lvc] = x;
-}
-void command_export(char* ident) {
-    int found = 1;
-    for (int i = 0; i < lvc;i++) {
-        if (strcmp(ident,lv[i] -> ident) == 0) {
-            setenv(ident,lv[i] -> value,1);
-            found = 0;
+
+    for (int i = 0; i < 70; i++) {
+        if (lv[i] == NULL) {
+            lv[i] = ident;
+            break;
         }
     }
-    if (found) {
+    setenv(ident,value,1);
+}
+void command_export(char* ident) {
+    int notfound = 1;
+    ident = ident + 1;
+
+    for (int i = 0; i < 70;i++) {
+
+        if (strcmp(ident,lv[i]) == 0) {
+            lv[i] = NULL;
+            notfound = 0;
+        }
+
+    }
+
+    if (notfound) {
         printf("Local Valriable not found");
     }
 }
-void command_deletelocal(){}
-void command_deleteglobal(){}
+void command_deletelocal(char* ident) {
+    unsetenv(ident);
+}
+void command_deleteglobal(char* ident) {
+    for (int i = 0; i < 70;i++) {
+
+        if (strcmp(ident,lv[i]) == 0) {
+            lv[i] = ident;
+        }
+
+    }
+}
 
 char* command_which(char* args) {
 
@@ -128,4 +143,17 @@ void command_echo(char* args) {
     if (s) {
         printf("%s",getenv((s+1)));
     }
+}
+
+void command_quit() {
+    for (int i = 0; i < 70;i++) {
+
+        if (lv[i] != NULL) {
+            unsetenv(lv[i]);
+        }
+    }
+
+    printf("Saving variables !!");
+    printf("Thnx for trying out");
+    exit(0);
 }
