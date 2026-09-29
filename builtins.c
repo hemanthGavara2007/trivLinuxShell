@@ -52,7 +52,7 @@ void command_clear() {
     system("clear");
 #endif
 }
-void command_makeglobalenv() {
+void command_makeEnvMain() {
 
 
     char* a = calloc(sizeof(char),70);
@@ -80,47 +80,21 @@ void command_makeglobalenv() {
     setenv(shell -> ident,shell-> value,1);
 }
 
-char* command_getenv(char* ident) {
+char* command_getEnv(char* ident) {
     return getenv(ident);
 }
-void command_makelocalenv(char* ident,char* value) {
+void command_makeEnvSub(char* ident,char* value) {
 
-    for (int i = 0; i < 70; i++) {
-        if (lv[i] == NULL) {
-            lv[i] = ident;
-            break;
-        }
-    }
     setenv(ident,value,1);
 }
 void command_export(char* ident) {
-    int notfound = 1;
-    ident = ident + 1;
-
-    for (int i = 0; i < 70;i++) {
-
-        if (strcmp(ident,lv[i]) == 0) {
-            lv[i] = NULL;
-            notfound = 0;
-        }
-
-    }
-
-    if (notfound) {
-        printf("Local Valriable not found");
-    }
+   return;
 }
-void command_deletelocal(char* ident) {
+void command_deleteEnv(char* ident) {
     unsetenv(ident);
 }
 void command_deleteglobal(char* ident) {
-    for (int i = 0; i < 70;i++) {
-
-        if (strcmp(ident,lv[i]) == 0) {
-            lv[i] = ident;
-        }
-
-    }
+    return;
 }
 
 char* command_which(char* args) {
@@ -142,7 +116,9 @@ void command_echo(char* args) {
     char* s = strstr(args,"$");
     if (s) {
         printf("%s",getenv((s+1)));
+        return;
     }
+    printf("%s",args);
 }
 
 void command_quit() {
@@ -153,7 +129,11 @@ void command_quit() {
         }
     }
 
-    printf("Saving variables !!");
+    printf("Saving variables !!\n");
     printf("Thnx for trying out");
     exit(0);
+}
+void handler(int num) {
+    printf("The process is terminated\n");
+    command_quit();
 }

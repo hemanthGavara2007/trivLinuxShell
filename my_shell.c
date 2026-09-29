@@ -6,55 +6,72 @@
 
 int main() {
     char* input = (char*)calloc(sizeof(char),1024);
+    char* out = calloc(sizeof(char),70);
+    int suc = 1;
     struct dirent* entry;
-    command_makeglobalenv();
+    command_makeEnvMain();
     while (1) {
-        printf("\n \n triv> ");
+        printf(" \n triv> ");
         fgets(input,1024,stdin);
+        signal(SIGINT,handler);
+        char **tokens = parse_input(input);
+        int n = 0;
 
-
-
+        while (tokens[n] != NULL){
         if (strcmp(input,"quit\n") == 0) {
+            raise(SIGINT);
             command_quit();
         }
-        char **tokens = parse_input(input);
 
-        if (strcmp(tokens[0],"echo") == 0 && tokens[2] == NULL) {
-            command_echo(tokens[1]);
+
+        if (strcmp(tokens[n],"echo") == 0) {
+            command_echo(tokens[n+1]);
+            n = n + 2;
+            suc = 1;
+            continue;
         }
 
-        if (strcmp(tokens[0],"pwd") == 0) {
+        if (strcmp(tokens[n],"pwd") == 0) {
             if (strstr(command_pwd(),"trivLinuxShell") != NULL) {
                 printf("%s",strstr(command_pwd(),"trivLinuxShell"));
             }
+            n++;
+            continue;
         }
 
-        if (strcmp(tokens[0],"cd") == 0) {
-            command_cd(tokens[1]);
+        if (strcmp(tokens[n],"cd") == 0) {
+            command_cd(tokens[n+1]);
+            n = n + 2;
+            continue;
 
         }
-        if (strcmp(tokens[0],"ls") == 0 ) {
-                command_ls(tokens[1]);
+        if (strcmp(tokens[n],"ls") == 0 ) {
+            command_ls(tokens[n+1]);
+            n = n + 2;
+            continue;
 
         }
-        if (strcmp(tokens[0],"clear") == 0) {
+        if (strcmp(tokens[n],"clear") == 0) {
             command_clear();
+            n++;
+            continue;
         }
-        if (strcmp(tokens[0],"which") == 0) {
-            if (command_which(tokens[1]) == NULL) {
+        if (strcmp(tokens[n],"which") == 0) {
+            if (command_which(tokens[n+1]) == NULL) {
                 printf("Command not found");
             }
             else {
-                printf("%s",command_which(tokens[1]));
+                printf("%s",command_which(tokens[n + 1]));
+                suc = 0;
             }
         }
-        if (strstr(tokens[0],"$") && strstr(tokens[0],"=")) {
+        if (strstr(tokens[n],"$") && strstr(tokens[n],"=")) {
             char* ident = calloc(20,sizeof(char)); // There is a error here , solve it
             char* value = calloc(20,sizeof(char));
 
             int i = 1;
             int j = 1;
-            while (tokens[0][i] != '=') {
+            while (tokens[n][i] != '=') {
                 ident[i - 1] = tokens[0][i];
 
                 i++;
@@ -63,21 +80,34 @@ int main() {
             j = j + i;
             i = 0;
             printf("\n");
-            while (tokens[0][j] != '\0') {
-                value[i] = tokens[0][j];
+            while (tokens[n][j] != '\0') {
+                value[i] = tokens[n][j];
                 j++;
                 i++;
             }
             value[i] = '\0';
-            command_makelocalenv(ident,value);
+            command_makeEnvSub(ident,value);
 
         }
-        if (strcmp(tokens[0],"export") == 0) {
-            printf("%s",tokens[1]);
-            command_export(tokens[1]);
+
+        if (strcmp(tokens[n],"unset") == 0) {
+            command_deleteEnv(tokens[n+1]);
         }
-        if (strcmp(tokens[0],"unset") == 0) {
-            command_deleteglobal(tokens[1]);
+        if (strcmp(tokens[n],"&&") == 0) {
+            if (suc != 1) {
+                break;
+            }
+            n++;
+            continue;
         }
+        if (strcmp(tokens[n],"||") == 0) {
+            if (suc == 1) {
+                break;
+            }
+            n++;
+        }
+
+    }
+
     }
 }
