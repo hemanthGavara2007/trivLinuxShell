@@ -87,6 +87,7 @@ int main() {
             }
             value[i] = '\0';
             command_makeEnvSub(ident,value);
+            continue;
 
         }
 
@@ -105,7 +106,11 @@ int main() {
                 break;
             }
             n++;
+            continue;
         }
+        printf("Looks like a error \n");
+            suc = 0;
+            n++;
 
     }
 
