@@ -6,7 +6,7 @@
 
 int main() {
     char* input = (char*)calloc(sizeof(char),1024);
-    char* out = calloc(sizeof(char),70);
+    char* out = calloc(sizeof(char),1024);
     strcpy(out,"<<<");
 
     int suc = 1;
@@ -22,23 +22,19 @@ int main() {
         while (tokens[n] != NULL){
         if (strcmp(input,"quit\n") == 0) {
             raise(SIGINT);
+            command_clear();
             command_quit();
         }
 
 
         if (strcmp(tokens[n],"echo") == 0) {
-            if (tokens[n+2] != NULL && strcmp(tokens[n+2],"|") != 0) {
+            if (tokens[n+2] == NULL){
                 command_echo(tokens[n+1]);
-                strcpy(out,"<<<");
-                n = n + 2;
-                suc = 1;
+                n++;
                 continue;
             }
 
-                strcpy(out,tokens[n+1]);
-                n = n + 3;
-                continue;
-            if (strcmp(out,"<<<") != 0) {
+            if (strcmp(out,"<<<") != 0 && strcmp(tokens[n-1],"|") == 0) {
                 command_echo(out);
                 n++;
                 continue;
@@ -48,12 +44,15 @@ int main() {
         }
 
         if (strcmp(tokens[n],"pwd") == 0) {
+
             if (strstr(command_pwd(),"trivLinuxShell") != NULL) {
                 if (tokens[n+1] == NULL){
                 printf("%s",strstr(command_pwd(),"trivLinuxShell"));
             }
                 if (strcmp(tokens[n+1],"|") == 0) {
-                    strcpy(out,tokens[n+1]);
+                    strcpy(out,strstr(command_pwd(),"trivLinuxShell"));
+                    n =  n + 2;
+                    continue;
                 }
             }
             n++;
@@ -148,9 +147,7 @@ int main() {
             n++;
             continue;
         }
-        printf("Looks like a error \n");
-            suc = 0;
-            n++;
+
         if (strcmp(tokens[n],">") == 0) {
             if (strcmp(out,"<<<") == 0 || tokens[n+1] == NULL) {
                 printf("Looks like a error , once check the code");
@@ -175,10 +172,14 @@ int main() {
                     suc = cOrGFile(tokens[n+1],"a",out);
                     if (suc == 0) {
                         printf("File has not been created");
+                        continue;
                     }
                 }
 
             }
+
+            if (suc == 0){printf("Looks like a error \n");n++;}
+
     }
 
     }

@@ -142,7 +142,7 @@ int cOrGFile(char* fn ,char* args,char* out) {
         fputs(out,fp);
         fputs("\n",fp);
         i = 1;
-        fclose(fptr);
+        fclose(fp);
     }
     return i;
 }
