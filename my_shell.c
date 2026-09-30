@@ -34,12 +34,13 @@ int main() {
                 continue;
             }
 
-            if (strcmp(out,"<<<") != 0 && strcmp(tokens[n-1],"|") == 0) {
+            if (strcmp(out,"<<<") != 0 && (strcmp(tokens[n-1],"|") == 0)) {
                 command_echo(out);
                 n++;
                 continue;
             }
-
+            strcpy(out,tokens[n+1]);
+            n = n + 2;
 
         }
 
@@ -156,6 +157,7 @@ int main() {
             }
             if (tokens[n+1] != NULL) {
                 suc = cOrGFile(tokens[n+1],"w",out);
+                n = n + 2;
                 if (suc == 0) {
                     printf("File has not been created");
                 }
@@ -170,6 +172,7 @@ int main() {
                 }
                 if (tokens[n+1] != NULL) {
                     suc = cOrGFile(tokens[n+1],"a",out);
+                    n = n + 2;
                     if (suc == 0) {
                         printf("File has not been created");
                         continue;
