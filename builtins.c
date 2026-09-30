@@ -2,10 +2,7 @@
 #include "my_shell.h"
 
 void command_cd(char* args) {
-    if (args == NULL) {
-        printf("cd: Expected argument \n");
-        return;
-    }
+
     if (strcmp(args,".") == 0) {
 
     }
@@ -136,4 +133,16 @@ void command_quit() {
 void handler(int num) {
     printf("The process is terminated\n");
     command_quit();
+}
+
+int cOrGFile(char* fn ,char* args,char* out) {
+    FILE * fp = fopen(fn,args);
+    int i = 0;
+    if (fp != NULL) {
+        fputs(out,fp);
+        fputs("\n",fp);
+        i = 1;
+        fclose(fptr);
+    }
+    return i;
 }

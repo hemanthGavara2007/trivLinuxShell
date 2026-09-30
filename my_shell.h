@@ -20,6 +20,7 @@ void command_deleteEnv(char* ident);
 void command_deleteglobal(char* ident);
 void command_export(char* ident);
 void handler(int num);
+int cOrGFile(char* fn ,char* args,char* out);
 typedef struct env {
     char* ident;
     char* value;
