@@ -71,7 +71,13 @@ int main() {
                n = n + 2;
                continue;
            }
-
+            if (n - 1 > 0) {
+                if (strcmp(tokens[n-1],"|") == 0) {
+                    command_cd(tokens[n+1]);
+                    n = n + 2;
+                    continue;
+                }
+            }
         }
         if (strcmp(tokens[n],"ls") == 0 ) {
             command_ls(tokens[n+1]);
@@ -80,9 +86,15 @@ int main() {
 
         }
         if (strcmp(tokens[n],"clear") == 0) {
+
+            if (tokens[n+1] != NULL) {
+                printf("That isnt the correct way of using clear, use it seperately");
+                break;
+            }
             command_clear();
             n++;
             continue;
+
         }
         if (strcmp(tokens[n],"which") == 0) {
             if (command_which(tokens[n+1]) == NULL) {
@@ -140,7 +152,7 @@ int main() {
             suc = 0;
             n++;
         if (strcmp(tokens[n],">") == 0) {
-            if (strcmp(out,"<<<") == 0) {
+            if (strcmp(out,"<<<") == 0 || tokens[n+1] == NULL) {
                 printf("Looks like a error , once check the code");
                 suc = 0;
                 continue;
@@ -153,6 +165,20 @@ int main() {
             }
 
         }
+            if (strcmp(tokens[n],">>") == 0) {
+                if (strcmp(out,"<<<") == 0 || tokens[n+1] == NULL) {
+                    printf("Looks like a error , once check the code");
+                    suc = 0;
+                    continue;
+                }
+                if (tokens[n+1] != NULL) {
+                    suc = cOrGFile(tokens[n+1],"a",out);
+                    if (suc == 0) {
+                        printf("File has not been created");
+                    }
+                }
+
+            }
     }
 
     }
