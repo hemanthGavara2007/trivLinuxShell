@@ -10,3 +10,4 @@ my_shell
 
 # CLion
 .idea/
+*.txt
