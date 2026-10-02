@@ -41,3 +41,6 @@ Yep there are many factors which make it special and try-worthy
 
 Still many others are in development and will be finished soon
 
+# Disclaimer !!!
+The shell is still in development and is made for educational purposes. Implying that in Beta stage, there is a possibility to encounter errors, so be careful about the commands to use
+
