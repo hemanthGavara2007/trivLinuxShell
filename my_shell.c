@@ -174,7 +174,17 @@ int main() {
                     }
                 }
             }
-
+            if (strcmp(tokens[n],"sleep") == 0) {
+                if (tokens[n+1] == NULL) {
+                    printf("You should enter a number");
+                    continue;
+                    suc = 0;
+                }
+                    printf("%s",tokens[n+1]);
+                    command_sleep(tokens[n+1]);
+                    n = n + 2;
+                    continue;
+            }
             if (suc == 0) { printf("Looks like a error \n"); }
         }
     }

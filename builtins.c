@@ -1,4 +1,6 @@
 
+
+
 #include "my_shell.h"
 
 void command_cd(char* args) {
@@ -126,12 +128,12 @@ void command_quit() {
         }
     }
 
-    printf("Saving variables !!\n");
+    printf("\nSaving variables !!\n");
     printf("Thnx for trying out");
     exit(0);
 }
 void handler(int num) {
-    printf("The process is terminated\n");
+    printf("\n The process is terminated\n");
     command_quit();
 }
 
@@ -145,4 +147,32 @@ int cOrGFile(char* fn ,char* args,char* out) {
         fclose(fp);
     }
     return i;
+}
+char* command_sleep(char* in) {
+    printf("Inside sleep command");
+    int len = 0;
+    while (in[len] != '\0') {
+
+        if (!isdigit(in[len])) {
+            char* msg = calloc(70,sizeof(char));
+            printf("%c",in[len]);
+            strcpy(msg,"\n Enter a digit");
+            printf("\n Error inside sleep of is digit");
+            return msg;
+        }
+        len++;
+    }
+
+    int i = len;
+    i--;
+    int j = atoi(in);
+    // Storing start time
+    clock_t start_time = clock();
+
+    // Looping till required time is not achieved
+    while ((clock() - start_time) < (j * CLOCKS_PER_SEC)) {
+
+    }
+    return NULL;
+
 }

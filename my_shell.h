@@ -4,6 +4,9 @@
 #include <dirent.h>
 #include <string.h>
 #include <signal.h>
+#include <ctype.h>
+#include <tgmath.h>
+#include <time.h>
 
 char** parse_input(const char* input);
 void command_cd(char* args);
@@ -21,6 +24,7 @@ void command_deleteglobal(char* ident);
 void command_export(char* ident);
 void handler(int num);
 int cOrGFile(char* fn ,char* args,char* out);
+char* command_sleep(char* in);
 typedef struct env {
     char* ident;
     char* value;
