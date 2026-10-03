@@ -1,4 +1,6 @@
 # TrivShell Beta 0.1v
+<img width="700" height="500" alt="t" src="https://github.com/user-attachments/assets/2678ab45-d2cd-41d3-8538-d95e24fde358" />
+
 ## What is it ?
 It is a **Sandboxed mini-Linux Shell implemented using C and Makefile**. The commands implemented are either coded by me or with help of special libraries.This README file is a comprehensive manual to all the commands I implemented in the shell
 
