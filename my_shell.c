@@ -5,17 +5,18 @@
 
 int main() {
     char *input = (char *) calloc(sizeof(char), 1024);
-    char *out = calloc(sizeof(char), 1024);
-    strcpy(out, "<<<");
+    char *out = calloc(sizeof(char), 1024); //output for pipes
+    strcpy(out, "<<<"); // my version of NULL
 
-    int suc = 1;
-    struct dirent *entry;
-    command_makeEnvMain();
+    int suc = 1; // Stores if the command is succesful or has failure , assuming initial success
+    struct dirent *entry; // for ls command functioning
+    command_makeEnvMain(); // declares pwd , and other shell variables
     while (1) {
         printf(" \n triv> ");
-        fgets(input, 1024,stdin);
-        signal(SIGINT, handler);
-        char **tokens = parse_input(input);
+        fgets(input, 1024,stdin);// safe way to get output
+        signal(SIGINT, handler);// handles Ctrl + C
+
+        char **tokens = parse_input(input); // see the parse_input.c file
         int n = 0;
 
         while (tokens[n] != NULL) {
@@ -34,7 +35,7 @@ int main() {
                 }
 
                 if (strcmp(out, "<<<") != 0 && n - 1 >= 0) {
-                    if (strcmp(tokens[n - 1], "|") == 0) {
+                    if (strcmp(tokens[n - 1], "|") == 0) { // pipes execution for the echo function
                         command_echo(out);
                         n++;
                         continue;
@@ -49,6 +50,8 @@ int main() {
                 if (strstr(command_pwd(), "trivLinuxShell") != NULL) {
                     if (tokens[n + 1] == NULL) {
                         printf("%s", strstr(command_pwd(), "trivLinuxShell"));
+                    }else {
+                        printf("Nope You cannot access files from outside");
                     }
                     if (strcmp(tokens[n + 1], "|") == 0) {
                         strcpy(out, strstr(command_pwd(),"trivLinuxShell"));
