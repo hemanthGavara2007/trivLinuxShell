@@ -47,14 +47,14 @@ int main() {
             }
 
             if (strcmp(tokens[n], "pwd") == 0) {
-                if (strstr(command_pwd(), "trivLinuxShell") != NULL) {
+                if (strstr(command_pwd(), "trivLinuxShell") != NULL) { // used for sandboxing
                     if (tokens[n + 1] == NULL) {
                         printf("%s", strstr(command_pwd(), "trivLinuxShell"));
                     }else {
                         printf("Nope You cannot access files from outside");
                     }
                     if (strcmp(tokens[n + 1], "|") == 0) {
-                        strcpy(out, strstr(command_pwd(),"trivLinuxShell"));
+                        strcpy(out, strstr(command_pwd(),"trivLinuxShell")); //pipes for pwd
                         n = n + 2;
                         continue;
                     }
@@ -64,7 +64,7 @@ int main() {
             }
 
             if (strcmp(tokens[n], "cd") == 0) {
-                if (tokens[n + 1] == NULL) {
+                if (tokens[n + 1] == NULL) { // checks whether there is something before cd or not
                     printf("cd: Expected argument \n");
                     suc = 0;
                     continue;
@@ -75,19 +75,19 @@ int main() {
                     continue;
                 }
                 if (n - 1 > 0) {
-                    if (strcmp(tokens[n - 1], "|") == 0) {
+                    if (strcmp(tokens[n - 1], "|") == 0) { //pipes for cd
                         command_cd(tokens[n + 1]);
                         n = n + 2;
                         continue;
                     }
                 }
             }
-            if (strcmp(tokens[n], "ls") == 0) {
+            if (strcmp(tokens[n], "ls") == 0) { // trying to execute pipes for ls
                 command_ls(tokens[n + 1]);
                 n = n + 2;
                 continue;
             }
-            if (strcmp(tokens[n], "clear") == 0) {
+            if (strcmp(tokens[n], "clear") == 0) { // you know what it means
                 if (tokens[n + 1] != NULL) {
                     printf("That isnt the correct way of using clear, use it seperately");
                     break;
@@ -96,7 +96,7 @@ int main() {
                 n++;
                 continue;
             }
-            if (strcmp(tokens[n], "which") == 0) {
+            if (strcmp(tokens[n], "which") == 0) { // used to know if a command exists or not
                 if (command_which(tokens[n + 1]) == NULL) {
                     printf("Command not found");
                 } else {
@@ -104,8 +104,8 @@ int main() {
                     suc = 0;
                 }
             }
-            if (strstr(tokens[n], "$") && strstr(tokens[n], "=")) {
-                char *ident = calloc(20, sizeof(char)); // There is a error here , solve it
+            if (strstr(tokens[n], "$") && strstr(tokens[n], "=")) { //shell variables stuff
+                char *ident = calloc(20, sizeof(char));
                 char *value = calloc(20, sizeof(char));
 
                 int i = 1;
@@ -132,14 +132,14 @@ int main() {
             if (strcmp(tokens[n], "unset") == 0) {
                 command_deleteEnv(tokens[n + 1]);
             }
-            if (strcmp(tokens[n], "&&") == 0) {
+            if (strcmp(tokens[n], "&&") == 0) { //here comes the conditionals of &&
                 if (suc != 1) {
                     break;
                 }
                 n++;
                 continue;
             }
-            if (strcmp(tokens[n], "||") == 0) {
+            if (strcmp(tokens[n], "||") == 0) { // here comes the conditionals of ||
                 if (suc == 1) {
                     break;
                 }
@@ -147,7 +147,7 @@ int main() {
                 continue;
             }
 
-            if (strcmp(tokens[n], ">") == 0) {
+            if (strcmp(tokens[n], ">") == 0) { // redirections of overwrite here , be careful with this
                 if (strcmp(out, "<<<") == 0 || (tokens[n + 1] == NULL)) {
                     printf("Looks like a error , once check the code");
                     suc = 0;
@@ -162,7 +162,7 @@ int main() {
                     continue;
                 }
             }
-            if (strcmp(tokens[n], ">>") == 0) {
+            if (strcmp(tokens[n], ">>") == 0) { // redirections of append here
                 if (strcmp(out, "<<<") == 0 || tokens[n + 1] == NULL) {
                     printf("Looks like a error , once check the code");
                     suc = 0;
@@ -177,7 +177,7 @@ int main() {
                     }
                 }
             }
-            if (strcmp(tokens[n],"sleep") == 0) {
+            if (strcmp(tokens[n],"sleep") == 0) { // want your shell to take rest , use this ,just kidding
                 if (tokens[n+1] == NULL) {
                     printf("You should enter a number");
                     continue;
@@ -188,7 +188,7 @@ int main() {
                     n = n + 2;
                     continue;
             }
-            if (suc == 0) { printf("Looks like a error \n"); }
+            if (suc == 0) { printf("Looks like a error \n"); }// I guess i dont need to explain this
         }
     }
 }

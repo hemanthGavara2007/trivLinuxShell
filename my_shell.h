@@ -7,6 +7,7 @@
 #include <ctype.h>
 #include <tgmath.h>
 #include <time.h>
+// All the libraries used are above
 
 char** parse_input(const char* input);
 void command_cd(char* args);
@@ -30,5 +31,5 @@ typedef struct env {
     char* value;
 }env;
 
-static char* commands[] = {"cd","env","pwd","ls","clear","echo","which",NULL};
+static char* commands[] = {"cd","env","pwd","ls","clear","echo","which",">",">>",NULL};
 char **lv;
