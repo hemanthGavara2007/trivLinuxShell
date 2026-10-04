@@ -30,7 +30,7 @@ int main() {
             if (strcmp(tokens[n], "echo") == 0) {
                 if (tokens[n + 2] == NULL) {
                     command_echo(tokens[n + 1]);
-                    n++;
+                    n = n + 2;
                     continue;
                 }
 
