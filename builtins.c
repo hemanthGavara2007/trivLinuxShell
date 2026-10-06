@@ -5,7 +5,7 @@
 
 void command_cd(char* args) {
 
-    if (strcmp(args,".") == 0) { // if it is cd . , then do nothing
+    if (strcmp(args,".") == 0) { // if it is cd . , then do nothing(home directory)
 
     }
     else if (strcmp(args,"..") == 0) {
@@ -176,8 +176,8 @@ char* command_sleep(char* in) {
 }
 
 int command_mkdir(char* path,char* name){ // still in implementation
-    if(path != NULL){
-    if(strstr(path,"trivLinuxShell") != NULL){
-        mkdir(path);
-    }}
+    int x = 0;
+    x = mkdir(name,0777);
+    return x;
+
 }

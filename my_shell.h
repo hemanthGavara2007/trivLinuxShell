@@ -7,6 +7,9 @@
 #include <ctype.h>
 #include <tgmath.h>
 #include <time.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 // All the libraries used are above
 
 char** parse_input(const char* input);

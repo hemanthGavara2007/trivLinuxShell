@@ -54,11 +54,11 @@ int main() {
                         printf("Nope You cannot access files from outside");
                     }
                     if(tokens[n+1] != NULL){
-                    if (strcmp(tokens[n + 1], "|") == 0) {
-                        strcpy(out, strstr(command_pwd(),"trivLinuxShell")); //pipes for pwd
-                        n = n + 2;
-                        continue;
-                    }
+                        if (strcmp(tokens[n + 1], "|") == 0) {
+                            strcpy(out, strstr(command_pwd(),"trivLinuxShell")); //pipes for pwd
+                            n = n + 2;
+                            continue;
+                        }
                 }
                 }
                 n++;
@@ -191,7 +191,17 @@ int main() {
                     continue;
                 
             }
-            if (suc == 0) { printf("Looks like a error \n"); }// I guess i dont need to explain this
+            if(strcmp(tokens[n],"mkdir") == 0)
+            {   int x;
+                if (tokens[n+1] != NULL){
+                    x = command_mkdir(NULL,tokens[n+1]);
+                }
+                if (!x){
+                    suc = 0;
+                }
+                n = n + 2;
+            }
+            if (suc == 0 && tokens[n+1] == NULL) { printf("Looks like a error \n"); n = n + 2;break;}// I guess i dont need to explain this
         }
     }
 }
