@@ -12,7 +12,7 @@ void command_cd(char* args) {
     }
     else if (strcmp(args,"..") == 0) {
         if (rel_path  != NULL) { // checks for any restricted access , if not executes chdir
-            chdir(rel_path);
+            chdir("..");
         }
         else {
             printf("Outside access is not allowed");
