@@ -26,6 +26,7 @@ void command_export(char* ident);
 void handler(int num);
 int cOrGFile(char* fn ,char* args,char* out);
 char* command_sleep(char* in);
+int command_mkdir(char* path,char* name);
 typedef struct env {
     char* ident;
     char* value;

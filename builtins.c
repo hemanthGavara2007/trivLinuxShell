@@ -174,3 +174,10 @@ char* command_sleep(char* in) {
     return NULL;
 
 }
+
+int command_mkdir(char* path,char* name){ // still in implementation
+    if(path != NULL){
+    if(strstr(path,"trivLinuxShell") != NULL){
+        mkdir(path);
+    }}
+}

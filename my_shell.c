@@ -16,7 +16,7 @@ int main() {
         fgets(input, 1024,stdin);// safe way to get output
         signal(SIGINT, handler);// handles Ctrl + C
 
-        char **tokens = parse_input(input); // see the parse_input.c file
+        char **tokens = parse_input(input); // see the parse_input.c file for more info 
         int n = 0;
         
         while (tokens[n] != NULL) {
@@ -189,6 +189,7 @@ int main() {
                     command_sleep(tokens[n+1]);
                     n = n + 2;
                     continue;
+                
             }
             if (suc == 0) { printf("Looks like a error \n"); }// I guess i dont need to explain this
         }
