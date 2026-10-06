@@ -4,17 +4,27 @@
 #include "my_shell.h"
 
 void command_cd(char* args) {
+    char* rel_path = strstr(command_pwd(),"trivLinuxShell/");
+    char* abs_path = command_pwd();
 
     if (strcmp(args,".") == 0) { // if it is cd . , then do nothing(home directory)
 
     }
     else if (strcmp(args,"..") == 0) {
-        if (strstr(command_pwd(),"trivLinuxShell/") != NULL) { // checks for any restricted access , if not executes chdir
-            chdir("..");
+        if (rel_path  != NULL) { // checks for any restricted access , if not executes chdir
+            chdir(rel_path);
         }
         else {
             printf("Outside access is not allowed");
         }
+    }
+    else if (args != NULL){
+        chdir(args);
+        if(strstr(command_pwd(),"trivLinuxShell") == NULL){
+            chdir(abs_path);
+            printf("Access not allowed");
+        }
+        
     }
 }
 

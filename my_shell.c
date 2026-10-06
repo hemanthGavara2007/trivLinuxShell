@@ -197,11 +197,11 @@ int main() {
                     x = command_mkdir(NULL,tokens[n+1]);
                 }
                 if (!x){
-                    suc = 0;
+                    suc = 1;
                 }
                 n = n + 2;
             }
-            if (suc == 0 && tokens[n+1] == NULL) { printf("Looks like a error \n"); n = n + 2;break;}// I guess i dont need to explain this
+            if (suc == 0 && tokens[n+1] == NULL) { printf("Looks like a error \n"); n = n + 2;exit(0);}// I guess i dont need to explain this
         }
     }
 }
