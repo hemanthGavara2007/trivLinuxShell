@@ -18,7 +18,7 @@ int main() {
 
         char **tokens = parse_input(input); // see the parse_input.c file
         int n = 0;
-
+        
         while (tokens[n] != NULL) {
             if (strcmp(input, "quit\n") == 0) {
                 raise(SIGINT);
@@ -53,11 +53,13 @@ int main() {
                     }else {
                         printf("Nope You cannot access files from outside");
                     }
+                    if(tokens[n+1] != NULL){
                     if (strcmp(tokens[n + 1], "|") == 0) {
                         strcpy(out, strstr(command_pwd(),"trivLinuxShell")); //pipes for pwd
                         n = n + 2;
                         continue;
                     }
+                }
                 }
                 n++;
                 continue;

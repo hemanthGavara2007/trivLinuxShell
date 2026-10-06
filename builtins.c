@@ -20,6 +20,7 @@ void command_cd(char* args) {
 
 char* command_pwd() {
     char* cwd = getcwd(NULL,0); // gets you the present working directory
+    
 
     if (cwd == NULL) {
         printf("\n Error: Directory is not existing");
