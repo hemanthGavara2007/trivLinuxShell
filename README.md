@@ -24,7 +24,7 @@ Yep there are many factors which make it special and try-worthy
       - [Youtube](https://www.youtube.com/)
       - [Unix & Linux Stack Exchange](https://unix.stackexchange.com/)
       - [Tutorials Point](https://www.tutorialspoint.com/)
-- ### Commands done without the use of exec()
+- ### Commands done without the use of exec(), pipe() or other commands
   - Might sound vague but this is simplest way for running of commands which cannot be called by C. I made sure I wont use it in this project to improve my resource gathering and debugging ability
 - ### Better Organization and Commentation of the Project
   - This project is a very good starting point for learners and tech enthusiasts for either implementing their own shell or learning how linux shell works in the background(not all features have been implemented yet)
