@@ -17,10 +17,14 @@ void command_cd(char* args) {
         }
     }
     else if (args != NULL){
-        chdir(args);
+        int x = chdir(args);
         if(strstr(command_pwd(),"trivLinuxShell") == NULL){
             chdir(bef_abs_path);
             printf("Outside Access not allowed");
+        }
+        else if (x == -1){
+            printf("Directory is not found");
+            return;
         }
         
     }
