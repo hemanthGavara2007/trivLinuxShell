@@ -1,14 +1,12 @@
 
-
-
 #include "my_shell.h"
 
 void command_cd(char* args) {
-    char* rel_path = strstr(command_pwd(),"trivLinuxShell/");
-    char* abs_path = command_pwd();
+    char* rel_path = strstr(command_pwd(),"trivLinuxShell/");// relative path
+    char* bef_abs_path = command_pwd(); // before path from which the user went into unauthorized
 
     if (strcmp(args,".") == 0) { // if it is cd . , then do nothing(home directory)
-
+        return;
     }
     else if (strcmp(args,"..") == 0) {
         if (rel_path  != NULL) { // checks for any restricted access , if not executes chdir
@@ -21,8 +19,8 @@ void command_cd(char* args) {
     else if (args != NULL){
         chdir(args);
         if(strstr(command_pwd(),"trivLinuxShell") == NULL){
-            chdir(abs_path);
-            printf("Access not allowed");
+            chdir(bef_abs_path);
+            printf("Outside Access not allowed");
         }
         
     }
