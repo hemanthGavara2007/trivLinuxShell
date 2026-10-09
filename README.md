@@ -37,6 +37,7 @@ Yep there are many factors which make it special and try-worthy
 - Redirections(> and >>)
 - Pipes(|)
 - quit
+- clear
 - Signals
 - Shell Variables(Global has to be implemented)
 - which

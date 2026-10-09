@@ -167,7 +167,7 @@ char* command_sleep(char* in) {
     while (in[len] != '\0') {
 
         if (!isdigit(in[len])) {
-            char* msg = calloc(70,sizeof(char));
+            char* msg = calloc(70,sizeof(char)); // checks if the entered is a digit
             printf("%c",in[len]);
             strcpy(msg,"\n Enter a digit");
             printf("\n Error inside sleep of is digit");
